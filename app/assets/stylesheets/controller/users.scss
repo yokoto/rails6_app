@@ -1,0 +1,26 @@
+@import '../application';
+@import '../layouts/front_common';
+
+/* ------- ユーザー一覧 ------- */
+.user_index {
+  height: 500px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ------- ユーザー登録フォーム ------- */
+.user_new {
+  height: 500px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ------- ユーザー詳細 ------- */
+.user_show {
+  height: 500px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

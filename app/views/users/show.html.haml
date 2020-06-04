@@ -1,0 +1,7 @@
+.user_show
+  %h1 Users#show
+  - flash.each do |key, value|
+    = content_tag(:div, value, class: key)
+  %p= "#{@user.name}のマイページ"
+  %p= @user.email
+  %p= @user.self_introduction.presence

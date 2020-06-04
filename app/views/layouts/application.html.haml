@@ -2,10 +2,21 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title App
+    %title Rails6 APP
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_link_tag "controller/#{params[:controller]}", media: 'all'
     = javascript_pack_tag 'application'
   %body
+    %header
+      .header_wrap
+        %ul.header_list
+          %li
+            = link_to 'TOP', root_path
+          %li
+            = link_to 'ユーザー登録', new_user_path
+          %li
+            = link_to 'ユーザー一覧', users_path
     = yield
+    %footer
+      .footer_wrap

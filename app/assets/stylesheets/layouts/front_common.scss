@@ -1,0 +1,39 @@
+/* ------- ヘッダー(ユーザーページ) ------- */
+header {
+  height: 80px;
+  background: linear-gradient(30deg, #2863a5, #4f9cc2);
+  .header_wrap {
+    max-width: 1000px;
+    height: 80px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .header_list {
+    display: flex;
+    justify-content: flex-end;
+    > li > a {
+      display: inline-block;
+      margin: 10px 10px;
+      padding: 10px 10px;
+      text-decoration: none;
+      line-height: 40px;
+      color: whitesmoke;
+      &:hover {
+        border-bottom: 1px solid #ddd;
+        opacity: 0.7;
+        transition: all 0.3s;
+      }
+    }
+  }
+}
+
+/* ------- フッター(ユーザーページ) ------- */
+footer {
+  height: 30px;
+  background: linear-gradient(30deg, #4f9cc2, #2863a5);
+  .footer_wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+}

@@ -7,3 +7,6 @@ config/master.key
 /vendor/bundle
 node_modules/
 /storage/*
+/public/packs
+/public/packs-test
+/public/assets

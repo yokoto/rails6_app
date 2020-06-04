@@ -1,0 +1,16 @@
+.user_new
+  %h1 Users#new
+
+  - if @user.errors.any?
+    - @user.errors.full_messages.each do |message|
+      %p= message
+  = form_with model: @user, local: true do |f|
+    %p 名前
+    = f.text_field :name
+    %p メールアドレス
+    = f.email_field :email
+    %p パスワード
+    = f.password_field :password
+    %p パスワード(確認)
+    = f.password_field :password_confirmation
+    %p= f.submit '登録'

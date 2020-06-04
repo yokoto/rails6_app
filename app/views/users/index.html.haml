@@ -1,0 +1,7 @@
+.user_index
+  %h1 Users#index
+
+  - @users.each do |user|
+    %p
+      = "#{user.id}："
+      = link_to user.name, user_path(user.id)
