@@ -6,4 +6,16 @@
 - Rails 6.0.3.1
 - MySQL 8.0.20
 
-## Install
+## Install & Usage
+### Setup Rails app on Docker
+```
+cp .env.dev.sample .env.dev
+
+docker-compose build --no-cache
+docker-compose run --rm web bin/rails db:create
+docker-compose run --rm web bin/rails db:migrate
+```
+### RUN
+```
+docker-compose up -d
+```
