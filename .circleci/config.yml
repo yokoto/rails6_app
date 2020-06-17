@@ -1,38 +1,57 @@
 version: 2.1
 jobs:
   build:
-    machine:
-      image: circleci/classic:edge
-    working_directory: ~/repo
+    docker:
+      - image: circleci/ruby:2.7.1-node-browsers
+        environment:
+          RAILS_ENV: test
+      - image: circleci/mysql:8.0.20
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+
       - run:
-          name: Install Docker Compose
+          name: Install dependencies
           command: |
-            set -x
-            curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-            chmod +x /usr/local/bin/docker-compose
+            bundle install --path vendor/bundle
+            yarn install
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ./vendor/bundle
+            - ./node_modules
+
       - run:
-          name: Copy setteing
-          command: cp .env.dev.sample .env.dev
-      - run:
-          name: Build images
-          command: docker-compose build
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+
       - run:
           name: Setup DB
-          command: docker-compose run --rm web rails db:create db:migrate
+          command: |
+            mv config/database.ci.yml config/database.yml
+            bundle exec rails db:create
+            bundle exec rails db:schema:load
+
       - run:
-          name: Run container
-          command: docker-compose up -d
+          name: Rubocop
+          command: bundle exec rubocop
+
       - run:
-          name: Run RSpec
-          command: docker-compose run --rm web rspec --color \
-                                                    --format progress \
-                                                    --format RspecJunitFormatter \
-                                                    --out /tmp/spec/rspec.xml
-      # - run:
-      #     name: run rubocop
-      #     command: bundle exec rubocop
-      - run:
-          name: docker-compose down
-          command: docker-compose down
+          name: RSpec
+          command: |
+            mkdir /tmp/rspec
+            bundle exec rspec --color \
+                              --format progress \
+                              --format RspecJunitFormatter \
+                              --out /tmp/rspec/rspec.xml
+
+      - store_test_results:
+          path: /tmp/rspec

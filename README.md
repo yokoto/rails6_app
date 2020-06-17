@@ -11,9 +11,9 @@
 ```
 cp .env.dev.sample .env.dev
 
-docker-compose build --no-cache
-docker-compose run --rm web bin/rails db:create
-docker-compose run --rm web bin/rails db:migrate
+docker-compose build
+docker-compose run --rm web bundle exec rails db:create
+docker-compose run --rm web bundle exec rails db:migrate
 ```
 ### RUN
 ```

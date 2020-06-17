@@ -1,0 +1,149 @@
+AllCops:
+  TargetRubyVersion: 2.7.1
+  Exclude:
+    - bin/**/*
+    - config/**/*
+    - db/**/*
+    - node_modules/**/*
+    - tmp/**/*
+    - vendor/**/*
+
+# ===============================================
+# Metrics
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# ===============================================
+# Naming
+Naming/MethodParameterName:
+  AllowNamesEndingInNumbers: false
+  MinNameLength: 1
+
+# ===============================================
+# Style
+Style/AccessModifierDeclarations:
+  Enabled: false
+
+Style/NumericLiteralPrefix:
+  EnforcedOctalStyle: zero_only
+
+Style/ParenthesesAroundCondition:
+  Enabled: false
+
+Style/RescueStandardError:
+  Enabled: false
+
+Style/TernaryParentheses:
+  EnforcedStyle: require_parentheses_when_complex
+
+Style/YodaCondition:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+# ASCII以外のコメントを禁止するか
+Style/AsciiComments:
+  Enabled: false
+
+# クラス定義の前にドキュメントを書かなければいけないか
+Style/Documentation:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: false
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+# ===============================================
+# Layout
+Layout/HashAlignment:
+  Enabled: false
+
+Layout/ExtraSpacing:
+  Enabled: false
+
+Layout/MultilineHashBraceLayout:
+  Enabled: false
+
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: new_line
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Layout/LineLength:
+  Enabled: false
+
+# ===============================================
+# Metrics
+
+Metrics/BlockLength:
+  Enabled: false
+
+# クラスの行数制限
+Metrics/ClassLength:
+  Enabled: false
+
+# 条件複雑度のチェックを行うか
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+# メソッドの行数制限
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+# ===============================================
+# Lint
+Lint/Debugger:
+  Exclude:
+    - spec/**/*
+
+Lint/EmptyWhen:
+  Enabled: false
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
