@@ -23,7 +23,7 @@ WORKDIR $APP_ROOT
 # bundle install
 COPY Gemfile $APP_ROOT/Gemfile
 COPY Gemfile.lock $APP_ROOT/Gemfile.lock
-RUN bundle install
+RUN bundle install --path vendor/bundle --quiet --jobs 4 --retry 3
 
 # yarn install
 COPY package.json $APP_ROOT/package.json

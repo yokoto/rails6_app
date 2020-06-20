@@ -20,8 +20,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            bundle install --path vendor/bundle
-            yarn install
+            bundle install --path vendor/bundle --quiet --jobs 4 --retry 3
+            yarn install --pure-lockfile
 
       - save_cache:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
@@ -55,3 +55,12 @@ jobs:
 
       - store_test_results:
           path: /tmp/rspec
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: /^actions.*/

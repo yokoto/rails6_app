@@ -1,0 +1,59 @@
+name: continuous_integration
+on:
+  push:
+    branches:
+      - 'actions/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    services:
+      mysql:
+        image: mysql:8.0.20
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306:3306
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7.1'
+
+      - name: Gem cache
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+
+      - name: bundle install
+        run: |
+          bundle config set path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
+
+      - name: JS package cache
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: yarn install
+        run: yarn install --pure-lockfile
+
+      - name: Setup DB
+        run: |
+          sudo mv config/database.ci.yml config/database.yml
+          bundle exec rails db:create db:schema:load --trace
+
+      - name: Run RSpec
+        run: bundle exec rspec --color --format progress --format RspecJunitFormatter
+
+      - name: Run Robcop
+        run: bundle exec rubocop
