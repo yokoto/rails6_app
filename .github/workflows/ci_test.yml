@@ -1,8 +1,8 @@
 name: ci_test
 on:
   push:
-    branches:
-      - 'actions/**'
+    branches-ignore:
+      - 'master'
 
 jobs:
   build:
@@ -31,7 +31,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+          key: bundle-${{ hashFiles('Gemfile.lock') }}
 
       - name: bundle install
         run: |
@@ -42,7 +42,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: yarn-${{ hashFiles('**/yarn.lock') }}
+          key: yarn-${{ hashFiles('yarn.lock') }}
 
       - name: yarn install
         run: yarn install --pure-lockfile
@@ -53,7 +53,7 @@ jobs:
           bundle exec rails db:create db:schema:load --trace
 
       - name: Run RSpec
-        run: bundle exec rspec --color --format progress --format RspecJunitFormatter
+        run: bundle exec rspec
 
       - name: Run Robcop
         run: bundle exec rubocop
