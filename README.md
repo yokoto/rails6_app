@@ -1,4 +1,8 @@
 # Rails6 Sample APP
+[![CircleCI](https://circleci.com/gh/shima-zu/rails6_app/tree/master.svg?style=svg)](https://circleci.com/gh/shima-zu/rails6_app/tree/master)
+
+![](https://github.com/shima-zu/rails6_app/workflows/ci_test/badge.svg)
+
 このアプリケーションはRails勉強用です。
 
 ## Version
