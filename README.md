@@ -4,7 +4,6 @@
 ![](https://github.com/shima-zu/rails6_app/workflows/ci_test/badge.svg)
 
 このアプリケーションはRails勉強用です。
-
 ## Version
 - Ruby 2.7.1
 - Rails 6.0.3.1
